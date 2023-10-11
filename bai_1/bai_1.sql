@@ -3,12 +3,12 @@ use student_management;
 
 create table class (
 id int primary key auto_increment,
-`name` varchar(50)
+class_name varchar(50)
 );
 
 create table teacher (
 id int primary key auto_increment,
-`name` varchar(50),
+teacher_name varchar(50),
 age int not null,
 country varchar(50)
 );
