@@ -43,6 +43,41 @@ where so_luong = ( select max(so_luong)
 				   from t1)
 ;
 
+-- cau 14
+with t1 as (
+select dvdk.ma_dich_vu_di_kem
+from hop_dong_chi_tiet hdct 
+join dich_vu_di_kiem dvdk
+on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+group by dvdk.ma_dich_vu_di_kem
+having count(dvdk.ma_dich_vu_di_kem) = 1)
+
+select hdct.ma_hop_dong,ten_loai_dich_vu, ten_dich_vu_di_kem, 1 so_lan
+from t1 
+join hop_dong_chi_tiet hdct 
+on hdct.ma_dich_vu_di_kem = t1.ma_dich_vu_di_kem
+join dich_vu_di_kiem dvdk
+on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+join hop_dong hd
+on hd.ma_hop_dong = hdct.ma_hop_dong
+join dich_vu dv
+on dv.ma_dich_vu = hd.ma_dich_vu
+join loai_dich_vu ldv
+on ldv.ma_loai_dich_vu = dv.ma_loai_dich_vu;
+
+
+-- cau 15 
+select nv.ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, dia_chi 
+from hop_dong hd
+join nhan_vien nv
+on hd.ma_nhan_vien = nv.ma_nhan_vien
+join trinh_do td
+on td.ma_trinh_do = nv.ma_trinh_do
+join bo_phan bp
+on bp.ma_bo_phan = nv.ma_bo_phan
+group by hd.ma_nhan_vien
+having count(ma_hop_dong) <= 3;
+
 
 
 
