@@ -106,6 +106,73 @@ set ngay_ket_thuc = '2021-01-15'
 where ma_hop_dong = 4;
 
 -- cau 27 
+-- a.Tạo Function func_dem_dich_vu
+
+delimiter //
+create function func_dem_dich_vu()
+returns int
+deterministic
+begin 
+ declare count_dv int;
+ select count(*) into count_dv
+ from hop_dong hd 
+ join dich_vu dv 
+ on dv.ma_dich_vu = hd.ma_dich_vu
+ where chi_phi_thue > 200000;
+ return count_dv;
+end //
+delimiter ;
+
+-- b.	Tạo Function func_tinh_thoi_gian_hop_dong
+
+delimiter // 
+create function func_tinh_thoi_gian_hop_dong (id int)
+returns int
+deterministic
+begin 
+declare max_time int;
+select max(datediff(ngay_ket_thuc, ngay_lam_hop_dong)) into max_time
+from hop_dong
+where ma_khach_hang = id;
+return max_time;
+end //
+delimiter ;
+
+-- cau 28
+delimiter //
+create procedure sp_xoa()
+begin
+create table t_mdv( mdv int);
+create table t_mhd (mhd int);
+
+insert into t_mdv 
+select hd.ma_dich_vu 
+from hop_dong hd
+join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu
+join loai_dich_vu ldv on ldv.ma_loai_dich_vu = dv.ma_loai_dich_vu
+where (year(ngay_lam_hop_dong) between 2015 and 2019) 
+and ten_loai_dich_vu = 'Room';
+
+insert into t_mhd 
+select ma_hop_dong
+from hop_dong
+where ma_dich_vu in ( select * from t_mdv);
+
+delete from dich_vu
+where ma_dich_vu in (select * from t_mdv);
+
+delete from hop_dong_chi_tiet
+where ma_hop_dong in (select * from t_mhd);
+
+delete from hop_dong
+where ma_hop_dong in (select * from t_mhd);
+
+drop table t_mhd;
+drop table t_mdv;
+end //
+delimiter ;
+
+
 
 
 
