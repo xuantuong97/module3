@@ -6,10 +6,50 @@
     <link rel="stylesheet" href="../../css/bootstrap.css">
     <script src="../../js/bootstrap.js"></script>
     <style>
+        .row1 {
+            width: 96%;
+            margin: 0 2%;
+        }
 
+        h3 {
+            margin: 15px 0;
+        }
+
+        .title {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+<div class="row1">
+    <h3>Responsive Image Gallery</h3>
+    <p class="title">Resize the browser window to see the effect.
+    </p>
+</div>
 
+<div class="row row1">
+    <div class="card col-lg-3 col-md-6 col-sm-12 ">
+        <img src="img_mountains.jpg" alt="">
+        <p class="text-center">Description of image</p>
+    </div>
+
+    <div class="card col-lg-3 col-md-6 col-sm-12 ">
+        <img src="img_forest.jpg" alt="">
+        <p class="text-center">Description of image</p>
+    </div>
+    <div class="card col-lg-3 col-md-6 col-sm-12 ">
+        <img src="img_fjords.jpg" alt="">
+        <p class="text-center">Description of image</p>
+    </div>
+    <div class="card col-lg-3 col-md-6 col-sm-12 ">
+        <img src="img_lights.jpg" alt="">
+        <p class="text-center">Description of image</p>
+    </div>
+</div>
+<div class="row1">
+    <p>This example use media queries to re-arrange the images on different screen sizes: for screens larger than 700px
+        wide, it will show four images side by side, for screens smaller than 700px, it will show two images side by
+        side. For screens smaller than 500px, the images will stack vertically (100%).</p>
+</div>
 </body>
 </html>
