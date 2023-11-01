@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IUserRepo {
-    public boolean insertUser(User user) ;
+     boolean insertUser(User user) ;
+     List<User> sort(String sort);
 
-    public User selectUser(int id);
+     List<User> findByCountry(String country);
+     User selectUser(int id);
 
-    public List<User> selectAllUsers();
+     List<User> selectAllUsers();
 
-    public boolean deleteUser(int id) throws SQLException;
+     boolean deleteUser(int id) throws SQLException;
 
-    public boolean updateUser(User user) throws SQLException;
+     boolean updateUser(User user) throws SQLException;
 }

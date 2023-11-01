@@ -15,6 +15,33 @@
 <p>Danh sách user</p>
 <br>
 <button type="button"><a href="/users?action=add">Add new</a></button>
+<br>
+<form action="/users">
+  <table >
+    <tr>
+      <td><input hidden="hidden" type="text" name="action" value="findByCountry"></td>
+
+      <td><input type="text" name="country"><button>Search By Country</button></td>
+    </tr>
+  </table>
+</form>
+<br>
+<form action="/users">
+  <table>
+    <tr>
+      <td>Sắp xếp theo tên</td>
+      <td><input hidden="hidden" type="text" name="action" value="sort"></td>
+      <td>
+        <label><input type="radio" name="sort" value="asc"> Asc</label>
+        <label><input type="radio" name="sort" value="desc"> Desc</label>
+        <label><input type="radio" name="sort" value="reset"> Reset</label>
+      </td>
+      <td>
+        <button type="submit">Gửi</button>
+      </td>
+    </tr>
+  </table>
+</form>
 <form action="/users" method="post">
   <table>
     <tr>

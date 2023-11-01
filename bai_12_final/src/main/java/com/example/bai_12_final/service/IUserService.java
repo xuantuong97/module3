@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IUserService {
     public boolean insertUser(User user) ;
+    List<User> findByCountry(String country);
 
     public User selectUser(int id);
 
@@ -15,4 +16,5 @@ public interface IUserService {
     public boolean deleteUser(int id) throws SQLException;
 
     public boolean updateUser(User user) throws SQLException;
+    List<User> sort(String sort);
 }

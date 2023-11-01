@@ -16,6 +16,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public List<User> findByCountry(String country) {
+        return userRepo.findByCountry(country);
+    }
+
+    @Override
     public User selectUser(int id) {
         return userRepo.selectUser(id);
     }
@@ -33,5 +38,10 @@ public class UserService implements IUserService {
     @Override
     public boolean updateUser(User user) throws SQLException {
        return userRepo.updateUser(user);
+    }
+
+    @Override
+    public List<User> sort(String sort) {
+        return userRepo.sort(sort);
     }
 }

@@ -19,6 +19,9 @@ public class UserRepo implements IUserRepo {
 
     private static final String DELETE_USER = "delete from users where id = ?;";
 
+    private final String FIND_BY_COUNTRY = "select * from users where country like ?;";
+    private final String SORT = "SELECT * FROM users ORDER BY name %s;";
+
     @Override
     public boolean insertUser(User user)  {
         Connection connection = Util.getConnectDB();
@@ -34,6 +37,9 @@ public class UserRepo implements IUserRepo {
             return false;
         }
     }
+
+
+
 
     @Override
     public User selectUser(int id) {
@@ -55,7 +61,49 @@ public class UserRepo implements IUserRepo {
         }
         return null;
     }
+    @Override
+    public List<User> sort(String sort) {
+        List<User> userList = new ArrayList<>();
+        Connection connection = Util.getConnectDB();
+        try {
+            String query = String.format(SORT, sort);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String country = resultSet.getString("country");
+                User user = new User( name, email, country);
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return userList;
+    }
+    @Override
+    public List<User> findByCountry(String country) {
+        List<User> userList = new ArrayList<>();
+        Connection connection = Util.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_COUNTRY);
+            preparedStatement.setString(1,"%" + country + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String country1 = resultSet.getString("country");
+                User user = new User( name, email, country1);
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return userList;
+    }
     @Override
     public List<User> selectAllUsers() {
         List<User> userList = new ArrayList<>();
@@ -78,6 +126,7 @@ public class UserRepo implements IUserRepo {
         }
         return userList;
     }
+
 
     @Override
     public boolean deleteUser(int id) throws SQLException {

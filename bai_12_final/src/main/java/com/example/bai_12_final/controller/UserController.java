@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+
+
 @WebServlet(name = "userController", value = "/users")
 public class UserController extends HttpServlet {
     private final IUserService userService = new UserService();
@@ -31,7 +33,42 @@ public class UserController extends HttpServlet {
                 break;
             case "delete": delete(req, resp);
             break;
+            case "findByCountry": findByCountry(req, resp);
+            break;
+            case "sort": sort(req, resp);
+            break;
             default: showAll(req, resp);
+        }
+    }
+
+    private void sort(HttpServletRequest req, HttpServletResponse resp) {
+        String sort = req.getParameter("sort");
+        if(!sort.equals("reset")){
+            List<User> userList = userService.sort(sort);
+            req.setAttribute("userList",userList);
+
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/user/list.jsp");
+            try {
+                requestDispatcher.forward(req, resp);
+            } catch (ServletException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            showAll(req,resp);
+        }
+    }
+
+    private void findByCountry(HttpServletRequest req, HttpServletResponse resp) {
+            String country = req.getParameter("country");
+            List<User> userList = userService.findByCountry(country);
+            req.setAttribute("listUser", userList);
+
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/user/country.jsp");
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
