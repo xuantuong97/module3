@@ -27,7 +27,7 @@ public class UserService implements IUserService {
 
     @Override
     public boolean deleteUser(int id) throws SQLException {
-        return false;
+        return userRepo.deleteUser(id);
     }
 
     @Override

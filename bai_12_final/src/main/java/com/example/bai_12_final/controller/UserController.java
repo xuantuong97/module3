@@ -29,7 +29,23 @@ public class UserController extends HttpServlet {
                 break;
             case "edit": showEdit(req, resp);
                 break;
+            case "delete": delete(req, resp);
+            break;
             default: showAll(req, resp);
+        }
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp)  {
+        int id = Integer.parseInt(req.getParameter("id")) ;
+        try {
+            userService.deleteUser(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            resp.sendRedirect("/users");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

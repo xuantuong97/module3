@@ -19,11 +19,11 @@
             <td><input type="text" name="name" id="name" value="${user.getName()}"></td>
         </tr>
         <tr>
-            <td>Name</td>
+            <td>Email</td>
             <td><input type="text" name="email" id="email" value="${user.getEmail()}"></td>
         </tr>
         <tr>
-            <td>Name</td>
+            <td>Country</td>
             <td><input type="text" name="country" id="country" value="${user.getCountry()}"></td>
         </tr>
         <tr>

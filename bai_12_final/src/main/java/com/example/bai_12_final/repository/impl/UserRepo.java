@@ -81,7 +81,11 @@ public class UserRepo implements IUserRepo {
 
     @Override
     public boolean deleteUser(int id) throws SQLException {
-        return false;
+        Connection connection = Util.getConnectDB();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER);
+        preparedStatement.setInt(1, id);
+
+        return preparedStatement.executeUpdate()>0;
     }
 
     @Override

@@ -33,9 +33,8 @@
         <td>${user.country}</td>
         <td><button type="button"><a href="/users?action=edit&id=${user.getId()}">Edit
         </a></button></td>
-        <td><a href="/users?action=delete&id=${user.getId()}">
-          <button>Delete</button>
-        </a></td>
+        <td><button type="button"><a href="/users?action=delete&id=${user.getId()}">Delete
+        </a></button></td>
       </tr>
     </c:forEach>
   </table>
