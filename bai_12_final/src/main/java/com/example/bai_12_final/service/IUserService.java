@@ -17,4 +17,7 @@ public interface IUserService {
 
     public boolean updateUser(User user) throws SQLException;
     List<User> sort(String sort);
+    List<User> selectAllByStore();
+    boolean updateUserStore(User user) throws SQLException;
+    boolean deleteUserStore(int id) throws SQLException;
 }

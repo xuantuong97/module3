@@ -95,7 +95,7 @@ public class UserController extends HttpServlet {
     private void delete(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("id"));
         try {
-            userService.deleteUser(id);
+            userService.deleteUserStore(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -122,7 +122,7 @@ public class UserController extends HttpServlet {
         String country = req.getParameter("country");
         User user = new User(id, name, email, country);
         try {
-            userService.updateUser(user);
+            userService.updateUserStore(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -155,7 +155,7 @@ public class UserController extends HttpServlet {
     }
 
     private void showAll(HttpServletRequest req, HttpServletResponse resp) {
-        List<User> userList = userService.selectAllUsers();
+        List<User> userList = userService.selectAllByStore();
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/user/list.jsp");
         req.setAttribute("userList", userList);
         try {

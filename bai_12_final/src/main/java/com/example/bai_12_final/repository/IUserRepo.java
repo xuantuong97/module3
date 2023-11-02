@@ -13,8 +13,12 @@ public interface IUserRepo {
      User selectUser(int id);
 
      List<User> selectAllUsers();
+     List<User> selectAllByStore();
 
      boolean deleteUser(int id) throws SQLException;
 
      boolean updateUser(User user) throws SQLException;
+
+     boolean updateUserStore(User user) throws SQLException;
+     boolean deleteUserStore(int id) throws SQLException;
 }
